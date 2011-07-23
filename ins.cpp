@@ -1,0 +1,161 @@
+/*
+   IDA Pro Processor Module for CR16C Instruction Set
+   
+   Copyright (C) 2011 
+   Andreas Schuler <andreas@schulerdev.de>
+
+   Based on Simple Python Byte Code Module (Chris Eagle <cseagle@gmail.com>)
+   
+   This program is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License version 2 as published 
+   by the Free Software Foundation.
+   
+   This program is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+   FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for 
+   more details.
+   
+   You should have received a copy of the GNU General Public License along with 
+   this program; if not, write to the Free Software Foundation, Inc., 59 Temple 
+   Place, Suite 330, Boston, MA 02111-1307 USA
+*/
+
+#include <ida.hpp>
+#include <idp.hpp>
+#include "ins.hpp"
+
+instruc_t Instructions[] = {
+{"x",            0                               },
+{"ADDB",        CF_USE1|CF_USE2|CF_CHG2         },
+{"ADDW",        CF_USE1|CF_USE2|CF_CHG2         },
+{"ADDD",        CF_USE1|CF_USE2|CF_CHG2         },
+{"ADDUB",       CF_USE1|CF_USE2|CF_CHG2         },
+{"ADDUW",       CF_USE1|CF_USE2|CF_CHG2         },
+{"ADDCB",       CF_USE1|CF_USE2|CF_CHG2         },
+{"ADDCW",       CF_USE1|CF_USE2|CF_CHG2         },
+{"ANDB",        CF_USE1|CF_USE2|CF_CHG2         },
+{"ANDW",        CF_USE1|CF_USE2|CF_CHG2         },
+{"ANDD",        CF_USE1|CF_USE2|CF_CHG2         },
+{"ASHUB",       CF_USE1|CF_USE2|CF_CHG2|CF_SHFT },
+{"ASHUW",       CF_USE1|CF_USE2|CF_CHG2|CF_SHFT },
+{"ASHUD",       CF_USE1|CF_USE2|CF_CHG2|CF_SHFT },
+{"BAL",         CF_USE1|CF_CHG1|CF_USE2|CF_CALL },
+{"BEQ",         CF_USE1|CF_JUMP                 },
+{"BNE",         CF_USE1|CF_JUMP                 },
+{"BCS",         CF_USE1|CF_JUMP                 },
+{"BCC",         CF_USE1|CF_JUMP                 },
+{"BHI",         CF_USE1|CF_JUMP                 },
+{"BLS",         CF_USE1|CF_JUMP                 },
+{"BGT",         CF_USE1|CF_JUMP                 },
+{"BLE",         CF_USE1|CF_JUMP                 },
+{"BFS",         CF_USE1|CF_JUMP                 },
+{"BFC",         CF_USE1|CF_JUMP                 },
+{"BLO",         CF_USE1|CF_JUMP                 },
+{"BHS",         CF_USE1|CF_JUMP                 },
+{"BLT",         CF_USE1|CF_JUMP                 },
+{"BGE",         CF_USE1|CF_JUMP                 },
+{"BEQ0B",       CF_USE1|CF_USE2|CF_JUMP         },
+{"BEQ0W",       CF_USE1|CF_USE2|CF_JUMP         },
+{"BNE0B",       CF_USE1|CF_USE2|CF_JUMP         },
+{"BNE0W",       CF_USE1|CF_USE2|CF_JUMP         },
+{"BR",          CF_USE1|CF_JUMP|CF_STOP         },
+{"CBITB",       CF_USE1|CF_USE2                 },
+{"CBITW",       CF_USE1|CF_USE2                 },
+{"CINV",		CF_USE1							},
+{"CMPB",        CF_USE1|CF_USE2                 },
+{"CMPW",        CF_USE1|CF_USE2                 },
+{"CMPD",        CF_USE1|CF_USE2                 },
+{"DI",          0                               },
+{"EI",          0                               },
+{"EIWAIT",      0                               },
+{"EXCP",        CF_USE1                         },
+{"JEQ",         CF_USE1|CF_JUMP                 },
+{"JNE",         CF_USE1|CF_JUMP                 },
+{"JCS",         CF_USE1|CF_JUMP                 },
+{"JCC",         CF_USE1|CF_JUMP                 },
+{"JHI",         CF_USE1|CF_JUMP                 },
+{"JLS",         CF_USE1|CF_JUMP                 },
+{"JGT",         CF_USE1|CF_JUMP                 },
+{"JLE",         CF_USE1|CF_JUMP                 },
+{"JFS",         CF_USE1|CF_JUMP                 },
+{"JFC",         CF_USE1|CF_JUMP                 },
+{"JLO",         CF_USE1|CF_JUMP                 },
+{"JHS",         CF_USE1|CF_JUMP                 },
+{"JLT",         CF_USE1|CF_JUMP                 },
+{"JGE",         CF_USE1|CF_JUMP                 },
+{"JAL",         CF_USE1|CF_CHG1|CF_USE2|CF_CALL },
+{"JUMP",        CF_USE1|CF_JUMP|CF_STOP         },
+{"JUSR",        CF_USE1|CF_JUMP|CF_STOP         },
+{"LOADB",       CF_USE1|CF_USE2|CF_CHG2         },
+{"LOADW",       CF_USE1|CF_USE2|CF_CHG2         },
+{"LOADD",       CF_USE1|CF_USE2|CF_CHG2         },
+{"LOADM",       CF_USE1                         },
+{"LOADMP",      CF_USE1                         },
+{"LPR",         CF_USE1|CF_USE2|CF_CHG2         },
+{"LPRD",        CF_USE1|CF_USE2|CF_CHG2         },
+{"LSHB",        CF_USE1|CF_USE2|CF_CHG2|CF_SHFT },
+{"LSHW",        CF_USE1|CF_USE2|CF_CHG2|CF_SHFT },
+{"LSHD",        CF_USE1|CF_USE2|CF_CHG2|CF_SHFT },
+{"MACSW",       CF_USE1|CF_USE2|CF_USE3|CF_CHG3 },
+{"MACUW",       CF_USE1|CF_USE2|CF_USE3|CF_CHG3 },
+{"MACQW",       CF_USE1|CF_USE2|CF_USE3|CF_CHG3 },
+{"MOVB",        CF_USE1|CF_USE2|CF_CHG2         },
+{"MOVW",        CF_USE1|CF_USE2|CF_CHG2         },
+{"MOVD",        CF_USE1|CF_USE2|CF_CHG2         },
+{"MOVXB",       CF_USE1|CF_USE2|CF_CHG2         },
+{"MOVXW",       CF_USE1|CF_USE2|CF_CHG2         },
+{"MOVZB",       CF_USE1|CF_USE2|CF_CHG2         },
+{"MOVZW",       CF_USE1|CF_USE2|CF_CHG2         },
+{"MULB",        CF_USE1|CF_USE2|CF_CHG2         },
+{"MULW",        CF_USE1|CF_USE2|CF_CHG2         },
+{"MULSB",       CF_USE1|CF_USE2|CF_CHG2         },
+{"MULSW",       CF_USE1|CF_USE2|CF_CHG2         },
+{"MULUW",       CF_USE1|CF_USE2|CF_CHG2         },
+{"NOP",         0                               },
+{"ORB",         CF_USE1|CF_USE2|CF_CHG2         },
+{"ORW",         CF_USE1|CF_USE2|CF_CHG2         },
+{"ORD",         CF_USE1|CF_USE2|CF_CHG2         },
+{"POP",         CF_USE1|CF_USE2|CF_CHG2         },
+{"POPRET",      CF_USE1|CF_USE2|CF_CHG2         },
+{"PUSH",        CF_USE1|CF_USE2                 },
+{"RETX",        CF_STOP                         },
+{"SBITB",       CF_USE1|CF_USE2                 },
+{"SBITW",       CF_USE1|CF_USE2                 },
+{"SEQ",         CF_USE1|CF_CHG1                 },
+{"SNE",         CF_USE1|CF_CHG1                 },
+{"SCS",         CF_USE1|CF_CHG1                 },
+{"SCC",         CF_USE1|CF_CHG1                 },
+{"SHI",         CF_USE1|CF_CHG1                 },
+{"SLS",         CF_USE1|CF_CHG1                 },
+{"SGT",         CF_USE1|CF_CHG1                 },
+{"SLE",         CF_USE1|CF_CHG1                 },
+{"SFS",         CF_USE1|CF_CHG1                 },
+{"SFC",         CF_USE1|CF_CHG1                 },
+{"SLO",         CF_USE1|CF_CHG1                 },
+{"SHS",         CF_USE1|CF_CHG1                 },
+{"SLT",         CF_USE1|CF_CHG1                 },
+{"SGE",         CF_USE1|CF_CHG1                 },
+{"SPR",         CF_USE1|CF_USE2|CF_CHG2         },
+{"SPRD",        CF_USE1|CF_USE2|CF_CHG2         },
+{"STORB",       CF_USE1|CF_USE2|CF_CHG2         },
+{"STORW",       CF_USE1|CF_USE2|CF_CHG2         },
+{"STORD",       CF_USE1|CF_USE2|CF_CHG2         },
+{"STORM",       CF_USE1                         },
+{"STORMP",      CF_USE1                         },
+{"SUBB",        CF_USE1|CF_USE2|CF_CHG2         },
+{"SUBW",        CF_USE1|CF_USE2|CF_CHG2         },
+{"SUBD",        CF_USE1|CF_USE2|CF_CHG2         },
+{"SUBCB",       CF_USE1|CF_USE2|CF_CHG2         },
+{"SUBCW",       CF_USE1|CF_USE2|CF_CHG2         },
+{"TBIT",        CF_USE1|CF_USE2                 },
+{"TBITB",       CF_USE1|CF_USE2                 },
+{"TBITW",       CF_USE1|CF_USE2                 },
+{"WAIT",        0                               },
+{"XORB",        CF_USE1|CF_USE2|CF_CHG2         },
+{"XORW",        CF_USE1|CF_USE2|CF_CHG2         },
+{"XORD",        CF_USE1|CF_USE2|CF_CHG2         },
+{"UKN NOP",		0								},
+{"UKN TRAP",	0								}
+};
+
+

@@ -1,0 +1,38 @@
+what
+~~~~
+
+   IDA Pro Processor Module for CR16C Instruction Set
+
+   Features:
+
+     - CR16C disassembling (CR16C is NOT binary compatible with CR16, CR16A or B)
+     - At the moment only some opcodes supportet...to be continued...
+
+
+authors
+~~~~~~~
+
+   Andreas Schuler <andreas at schulerdev.de>
+
+   Based on Simple Python Byte Code Module (Chris Eagle <cseagle@gmail.com>)
+
+
+license
+~~~~~~~
+
+   GNU GENERAL PUBLIC LICENSE Version 2
+   see LICENSE file
+
+
+compile/install
+~~~~~~~~~~~~~~~
+
+   You need the IDA Pro SDK to compile the processor module.
+
+   Copy the files to sdk/module/cr16c, open the Visual Studio 6
+   project files and start build. 
+   Copy Release/cr16c.w32 to procs in your IDA folder.
+ 
+   Sorry, at the moment only a visual Studio 6 project file exists.
+   There is a additional Makefile that is a startpoint to compile with another
+   compiler.
