@@ -86,16 +86,6 @@ void idaapi cr16c_out(void)
 			out_one_operand(1);
 			break;
 
-		case ooType9:					//r6, [r12]0x26666(r3,r2)
-			out_one_operand(1);
-			out_symbol(',');
-			out_symbol('[');
-			out_one_operand(3);
-			out_symbol(']');
-			out_one_operand(2);
-			out_one_operand(0);
-			break;
-
 		case ooType10:					//x,y,z			->0,1,2
 			out_one_operand(0);
 			out_symbol(',');

@@ -93,15 +93,15 @@ t_subop20_tbl subop20_10011_tbl[16]=
 	{CR16C_storw,	{PAR_abs,		PAR_imm,	PAR_none},	ooType4,	3,	3},
 	{CR16C_storb,	{PAR_ind_reg,	PAR_reg,	PAR_disp},	ooType1,	2,	3},
 	{CR16C_storb,	{PAR_ind_rp,	PAR_reg,	PAR_disp},	ooType1,	2,	3},
-	{CR16C_storb,	{PAR_ind_rrp,	PAR_reg,	PAR_disp},	ooType9,	2,	3},
+	{CR16C_storb,	{PAR_ind_rrp,	PAR_reg,	PAR_disp},	ooType7,	2,	3},
 	{CR16C_storb,	{PAR_abs,		PAR_reg,	PAR_none},	ooType4,	3,	3},
 	{CR16C_stord,	{PAR_ind_reg,	PAR_ind_rp,	PAR_disp},	ooType1,	2,	3},
 	{CR16C_stord,	{PAR_ind_rp,	PAR_ind_rp,	PAR_disp},	ooType1,	2,	3},
-	{CR16C_stord,	{PAR_ind_rrp,	PAR_ind_rp,	PAR_disp},	ooType9,	2,	3},
+	{CR16C_stord,	{PAR_ind_rrp,	PAR_ind_rp,	PAR_disp},	ooType7,	2,	3},
 	{CR16C_stord,	{PAR_abs,		PAR_ind_rp,	PAR_none},	ooType4,	3,	3},
 	{CR16C_storw,	{PAR_ind_reg,	PAR_reg,	PAR_disp},	ooType1,	2,	3},
 	{CR16C_storw,	{PAR_ind_rp,	PAR_reg,	PAR_disp},	ooType1,	2,	3},
-	{CR16C_storw,	{PAR_ind_rrp,	PAR_reg,	PAR_disp},	ooType9,	2,	3},
+	{CR16C_storw,	{PAR_ind_rrp,	PAR_reg,	PAR_disp},	ooType7,	2,	3},
 	{CR16C_storw,	{PAR_abs,		PAR_reg,	PAR_none},	ooType4,	3,	3}
 };
 
@@ -203,6 +203,60 @@ struct t_op16_tbl op16_tbl[]=
 	{null,				CR16C_ukntrap,			{PAR_none,	PAR_none,	PAR_none},	ooType0,	0,	3}		//11111
 };
 
+t_op12_tbl op12_tbl[16]=
+{
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_addd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType4,	23,	3},
+	{CR16C_subd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType4,	23,	3},
+	{CR16C_andd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType4,	23,	3},
+	{CR16C_ord,		{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType4,	23,	3},
+	{CR16C_xord,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType4,	23,	3},
+	{CR16C_movd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType4,	23,	3},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},	//trap fc
+	{CR16C_cmpd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType4,	23,	3},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_excp,	{PAR_vect,		PAR_none,	PAR_none},	ooType2,	11,	1},
+	{CR16C_jal,		{PAR_ind_rp,	PAR_ind_rp,	PAR_none},	ooType1,	11,	1},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1}
+};
+
+t_op9_tbl op9_0900_tbl[1]=
+{
+	{CR16C_lshb,	{PAR_reg,		PAR_immn,	PAR_none},	ooType4,	9,	1}
+};
+
+t_op9_tbl op9_4000_tbl[2]=
+{
+	{CR16C_ashub,	{PAR_reg,		PAR_imm,	PAR_none},	ooType4,	9,	1},
+	{CR16C_ashub,	{PAR_reg,		PAR_immn,	PAR_none},	ooType4,	9,	1}
+};
+
+t_op9_tbl op9_6a00_tbl[4]=
+{
+	{CR16C_cbitb,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType1,	9,	1},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_cbitb,	{PAR_ind_rp,	PAR_imm,	PAR_disp},	ooType1,	10,	2},
+	{CR16C_cbitb,	{PAR_abs,		PAR_imm,	PAR_none},	ooType4,	7,	2}
+};
+
+t_op9_tbl op9_7200_tbl[4]=
+{
+	{CR16C_sbitb,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType1,	9,	1},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_sbitb,	{PAR_ind_rp,	PAR_imm,	PAR_disp},	ooType1,	10,	2},
+	{CR16C_sbitb,	{PAR_abs,		PAR_imm,	PAR_none},	ooType4,	7,	2}
+};
+
+t_op9_tbl op9_7a00_tbl[4]=
+{
+	{CR16C_tbitb,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType1,	9,	1},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_tbitb,	{PAR_ind_rp,	PAR_imm,	PAR_disp},	ooType1,	10,	2},
+	{CR16C_tbitb,	{PAR_abs,		PAR_imm,	PAR_none},	ooType4,	7,	2}
+};
 
 //----------------------------------------------------------------------
 int idaapi cr16c_ana(void) 
@@ -218,9 +272,9 @@ int idaapi cr16c_ana(void)
 		analyze_opcode13(w1);
 	else if((w1&0xff00)==0x0000)	//00000000xxxxxxxx
 		analyze_opcode12(w1);
-	else if(((w1&0xffc0)==0x6a80)||	//0110101010xxxxxx
-			((w1&0xffc0)==0x7280)||	//0111001010xxxxxx
-			((w1&0xffc0)==0x7a80)||	//0111101010xxxxxx
+	else if(((w1&0xff80)==0x6a80)||	//0110101010xxxxxx
+			((w1&0xff80)==0x7280)||	//0111001010xxxxxx
+			((w1&0xff80)==0x7a80)||	//0111101010xxxxxx
 			((w1&0xff00)==0x8600)||	//10000110xxxxxxxx
 			((w1&0xff00)==0xc600))	//11000110xxxxxxxx
 		analyze_opcode10(w1);
@@ -255,7 +309,7 @@ int idaapi cr16c_ana(void)
 			((w1&0xf000)==0x8000)||	//10000000xxxxxxxx
 			((w1&0xf800)==0xc000)||	//11000000xxxxxxxx
 			((w1&0xfe00)==0xc800))	//1100100xxxxxxxxx
-		//for optimization must this be here and not before analyze_opcode7()
+		//for optimization this must be here and not before analyze_opcode7()
 		analyze_opcode8(w1);
 	else if(((w1&0xf000)==0x1000)||	//0001xxxxxxxxxxxx
 			((w1&0xf000)==0x9000)||	//1001xxxxxxxxxxxx
@@ -271,42 +325,6 @@ int idaapi cr16c_ana(void)
 	return cmd.size;
 
 }
-
-
-t_op12_tbl op9_0900_tbl[1]=
-{
-	{CR16C_lshb,	{PAR_reg,		PAR_immn,	PAR_none},	ooType4,	9,	1}
-};
-
-t_op12_tbl op9_4000_tbl[2]=
-{
-	{CR16C_ashub,	{PAR_reg,		PAR_imm,	PAR_none},	ooType4,	9,	1},
-	{CR16C_ashub,	{PAR_reg,		PAR_immn,	PAR_none},	ooType4,	9,	1}
-};
-
-t_op12_tbl op9_6a00_tbl[4]=
-{
-	{CR16C_cbitb,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType1,	9,	1},
-	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
-	{CR16C_cbitb,	{PAR_ind_rp,	PAR_imm,	PAR_disp},	ooType1,	10,	2},
-	{CR16C_cbitb,	{PAR_abs,		PAR_imm,	PAR_none},	ooType4,	7,	2}
-};
-
-t_op12_tbl op9_7200_tbl[4]=
-{
-	{CR16C_sbitb,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType1,	9,	1},
-	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
-	{CR16C_sbitb,	{PAR_ind_rp,	PAR_imm,	PAR_disp},	ooType1,	10,	2},
-	{CR16C_sbitb,	{PAR_abs,		PAR_imm,	PAR_none},	ooType4,	7,	2}
-};
-
-t_op12_tbl op9_7a00_tbl[4]=
-{
-	{CR16C_tbitb,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType1,	9,	1},
-	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
-	{CR16C_tbitb,	{PAR_ind_rp,	PAR_imm,	PAR_disp},	ooType1,	10,	2},
-	{CR16C_tbitb,	{PAR_abs,		PAR_imm,	PAR_none},	ooType4,	7,	2}
-};
 
 
 void analyze_opcode9(ushort w1)
@@ -329,7 +347,7 @@ void analyze_opcode9(ushort w1)
 		case 0x4000:
 			tmpcmd=op9_4000_tbl[(w1&0x0080)>>7];
 			break;
-		case 0x0800:				//0800 can only be 0900 (see opcode-difinition)
+		case 0x0800:				//0800 is 0900 , cause opcode=(w1&0xfe00)
 			tmpcmd=op9_0900_tbl[0];
 			break;
 
@@ -344,44 +362,93 @@ void analyze_opcode9(ushort w1)
 	if((tmpcmd.fmt==10)||(tmpcmd.fmt==7))
 		w2=ua_next_word();
 
-	cmd.itype=tmpcmd.type;
-	cmd.auxpref=tmpcmd.op_order;
-
-	struct t_pars pars;
-	get_parametervalues(tmpcmd.fmt,w1,w2,pars);
-
-	for(int i=0;i<3;i++)
-		set_operand(i,tmpcmd.p[i],pars.par[i]);
+	fill_cmd(tmpcmd,w1,w2);
 
 }
+
+
+t_op10_tbl op10_8600_tbl[4]=
+{
+	{CR16C_storb,	{PAR_ind_rrp,	PAR_imm,	PAR_disp},	ooType7,	17,	2},
+	{CR16C_loadb,	{PAR_ind_rrp,	PAR_reg,	PAR_disp},	ooType8,	17,	2},
+	{CR16C_loadd,	{PAR_ind_rrp,	PAR_ind_rp,	PAR_disp},	ooType8,	17,	2},
+	{CR16C_loadw,	{PAR_ind_rrp,	PAR_reg,	PAR_disp},	ooType8,	17,	2}
+};
+
+t_op10_tbl op10_c600_tbl[4]=
+{
+	{CR16C_storw,	{PAR_ind_rrp,	PAR_imm,	PAR_disp},	ooType7,	17,	2},
+	{CR16C_storb,	{PAR_ind_rrp,	PAR_reg,	PAR_disp},	ooType7,	17,	2},
+	{CR16C_stord,	{PAR_ind_rrp,	PAR_ind_rp,	PAR_disp},	ooType7,	17,	2},
+	{CR16C_storw,	{PAR_ind_rrp,	PAR_reg,	PAR_disp},	ooType7,	17,	2}
+};
+
+t_op10_tbl op10_6a80_tbl[2]=
+{
+	{CR16C_cbitb,	{PAR_ind_rrp,	PAR_imm,	PAR_disp},	ooType7,	17,	2},
+	{CR16C_cbitw,	{PAR_ind_rrp,	PAR_imm,	PAR_disp},	ooType7,	17,	2}
+};
+
+t_op10_tbl op10_7280_tbl[2]=
+{
+	{CR16C_sbitb,	{PAR_ind_rrp,	PAR_imm,	PAR_disp},	ooType7,	17,	2},
+	{CR16C_sbitw,	{PAR_ind_rrp,	PAR_imm,	PAR_disp},	ooType7,	17,	2}
+};
+
+t_op10_tbl op10_7a80_tbl[2]=
+{
+	{CR16C_tbitb,	{PAR_ind_rrp,	PAR_imm,	PAR_disp},	ooType7,	17,	2},
+	{CR16C_tbitw,	{PAR_ind_rrp,	PAR_imm,	PAR_disp},	ooType7,	17,	2}
+};
+
 
 
 void analyze_opcode10(ushort w1)
 {
-	warning("opcode10");
-	cmd.itype=0;
-	cmd.size=0;
-}
+	t_cmdinfo tmpcmd;
 
-t_op12_tbl op12_tbl[16]=
-{
-	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
-	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
-	{CR16C_addd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType4,	23,	3},
-	{CR16C_subd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType4,	23,	3},
-	{CR16C_andd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType4,	23,	3},
-	{CR16C_ord,		{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType4,	23,	3},
-	{CR16C_xord,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType4,	23,	3},
-	{CR16C_movd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType4,	23,	3},
-	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},	//trap fc
-	{CR16C_cmpd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType4,	23,	3},
-	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
-	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
-	{CR16C_excp,	{PAR_vect,		PAR_none,	PAR_none},	ooType2,	11,	1},
-	{CR16C_jal,		{PAR_ind_rp,	PAR_ind_rp,	PAR_none},	ooType1,	11,	1},
-	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
-	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1}
-};
+	ushort opcode=(w1&0xe700);
+	ushort opcode2;
+
+	switch(opcode)
+	{
+		case 0x8600:
+			tmpcmd=op10_8600_tbl[(w1&0x00c0)>>6];
+			break;
+		case 0xc600:
+			tmpcmd=op10_c600_tbl[(w1&0x00c0)>>6];
+			break;
+		case 0x6200:
+			opcode2=(w1&0xff80);
+
+			switch(opcode2)
+			{
+				case 0x6a80:
+					tmpcmd=op10_6a80_tbl[(w1&0x0040)>>6];
+					break;
+				case 0x7280:
+					tmpcmd=op10_7280_tbl[(w1&0x0040)>>6];
+					break;
+				case 0x7a80:
+					tmpcmd=op10_7a80_tbl[(w1&0x0040)>>6];
+					break;
+				default:
+				warning("unknown opcode10_2");
+				cmd.size=0;
+				return;
+			}
+
+			break;
+
+		default:
+			warning("unknown opcode10");
+			cmd.size=0;
+			return;
+	}
+
+	fill_cmd(tmpcmd,w1,ua_next_word());
+
+}
 
 
 void analyze_opcode12(ushort w1)
@@ -462,11 +529,11 @@ void analyze_opcode16(ushort w1)
 	if(op16_tbl[opcode].type==CR16C_null)
 	{
 		tmpcmd=op16_tbl[opcode].subop[GET_P4_4(w2)];
-		cmd.itype=tmpcmd.type;
+		//cmd.itype=tmpcmd.type;
 	}
 	else
 	{
-		cmd.itype=op16_tbl[opcode].type;
+		//cmd.itype=op16_tbl[opcode].type;
 
 		tmpcmd.type=op16_tbl[opcode].type;
 		tmpcmd.fmt=op16_tbl[opcode].fmt;
@@ -476,6 +543,13 @@ void analyze_opcode16(ushort w1)
 		tmpcmd.op_order=op16_tbl[opcode].op_order;
 	}
 
+	fill_cmd(tmpcmd,w1,w2);
+
+}
+
+void fill_cmd(t_cmdinfo &tmpcmd,ushort w1,ushort w2)
+{
+	cmd.itype=tmpcmd.type;
 	cmd.auxpref=tmpcmd.op_order;
 
 	struct t_pars pars;
@@ -483,9 +557,7 @@ void analyze_opcode16(ushort w1)
 
 	for(int i=0;i<3;i++)
 		set_operand(i,tmpcmd.p[i],pars.par[i]);
-
 }
-
 
 void get_parametervalues(int fmt,ushort w1,ushort w2,struct t_pars &pars)
 {
@@ -539,6 +611,13 @@ void get_parametervalues(int fmt,ushort w1,ushort w2,struct t_pars &pars)
 			pars.par[1]=0;
 			pars.par[2]=0;
 			break;
+
+		case 17:
+			pars.par[0]=GET_P1_4(w1);
+			pars.par[1]=GET_P2_4(w2);
+			pars.par[2]=GET_P3_14(w1,w2);
+			break;
+
 		case 23:
 			pars.par[0]=GET_P1_4(w1);
 			pars.par[1]=GET_P2_32(w2,ua_next_word());

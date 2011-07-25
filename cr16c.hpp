@@ -53,6 +53,11 @@
 
 #define GET_P2_32(x,y)		(((x)<<16)|(y))
 
+#define GET_P3_14(x,y)		((GET_P3_B136(y)<<8)|(GET_P3_B76(y)<<6)|(GET_P3_B54(x)<<4)|GET_P1_4(y))
+
+#define GET_P3_B54(x)		(((x)&0x0030)>>4)
+#define GET_P3_B76(x)		(((x)&0xc000)>>14)
+#define GET_P3_B136(x)		(((x)&0x3f00)>>8)
 
 
 struct t_cmdinfo
@@ -66,6 +71,8 @@ struct t_cmdinfo
 
 typedef t_cmdinfo t_subop20_tbl;
 typedef t_cmdinfo t_op12_tbl;
+typedef t_cmdinfo t_op10_tbl;
+typedef t_cmdinfo t_op9_tbl;
 
 struct t_op16_tbl
 {
@@ -117,6 +124,7 @@ void analyze_opcode4(ushort w1);
 
 void get_parametervalues(int fmt,ushort w1,ushort w2,struct t_pars &pars);
 void set_operand(int opnum,enum par_types ptype,int value);
+void fill_cmd(t_cmdinfo &tmpcmd,ushort w1,ushort w2);
 
 //------------------------------------------------------------------------
 enum cr16c_registers
