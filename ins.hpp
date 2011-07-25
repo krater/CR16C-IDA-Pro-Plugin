@@ -182,6 +182,7 @@ PAR_ind_prp,
 PAR_ind_rrp,
 PAR_abs,
 PAR_imm,
+PAR_immn,
 PAR_pr,
 PAR_prd,
 PAR_vect

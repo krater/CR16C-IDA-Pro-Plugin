@@ -36,18 +36,14 @@ void idaapi cr16c_out(void)
 		case ooType0:					//no operands
 			break;
 
-		case ooType1:					//$4,0x444(r0)	->$1,20
-			out_symbol('$');
+		case ooType1:					//4,0x444(r0)	->1,20
 			out_one_operand(1);
 			out_symbol(',');
 			out_one_operand(2);
 			out_one_operand(0);
 			break;
 
-		case ooType2:					//r0, 0(r1)		->1.20
-			out_one_operand(1);
-			out_symbol(',');
-			out_one_operand(2);
+		case ooType2:					//4				->0
 			out_one_operand(0);
 			break;
 
@@ -58,8 +54,7 @@ void idaapi cr16c_out(void)
 			out_one_operand(1);
 			break;
 
-		case ooType4:					//$4,0x444		->$1,0
-			out_symbol('$');
+		case ooType4:					//$4,0x444		->1,0
 			out_one_operand(1);
 			out_symbol(',');
 			out_one_operand(0);
@@ -71,14 +66,7 @@ void idaapi cr16c_out(void)
 			out_one_operand(1);
 			break;
 
-		case ooType6:					//r7, 0x66666   ->1,0
-			out_one_operand(1);
-			out_symbol(',');
-			out_one_operand(0);
-			break;
-
 		case ooType7:					//$7, [r12]0x26666(r3,r2)
-			out_symbol('$');
 			out_one_operand(1);
 			out_symbol(',');
 			out_symbol('[');
@@ -108,7 +96,7 @@ void idaapi cr16c_out(void)
 			out_one_operand(0);
 			break;
 
-		case ooType10:					//x,y,z
+		case ooType10:					//x,y,z			->0,1,2
 			out_one_operand(0);
 			out_symbol(',');
 			out_one_operand(1);
@@ -116,14 +104,7 @@ void idaapi cr16c_out(void)
 			out_one_operand(2);
 			break;
 
-		case ooType11:					//$4			->$1
-			out_symbol('$');
-			out_one_operand(0);
-			break;
 
-		case ooType12:					//4				->1
-			out_one_operand(0);
-			break;
 
 		default:
 			if(cmd.Op1.type != o_void) 
@@ -245,7 +226,8 @@ bool idaapi cr16c_outop(op_t& x)
 			OutValue(x,OOF_SIGNED|OOFW_32);
 			break;
 		case o_imm:
-			OutValue(x);
+			out_symbol('$');
+			OutValue(x,OOF_SIGNED|OOFW_32);
 			break;
 		case o_idpspec0:
 			 out_symbol('[');

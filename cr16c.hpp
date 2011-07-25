@@ -36,13 +36,17 @@
 
 
 #define GET_P1_3(x)			(((x)&0x0007))
+#define GET_P2_3(x)			(((x)&0x0070)>>4)
+
 
 #define GET_P1_4(x)			(((x)&0x000f))
 #define GET_P2_4(x)			(((x)&0x00f0)>>4)
 #define GET_P3_4(x)			(((x)&0x0f00)>>8)
 #define GET_P4_4(x)			(((x)&0xf000)>>12)
 
+#define GET_P1_20(x,y)		((((int)GET_P1_4(x))<<16)+(y))
 #define GET_P3_20(x,y)		((((int)GET_P3_4(x))<<16)+(y))
+
 #define GET_P1_24_1(x,y)	((((int)GET_P1_4(x))<<20)+(GET_P3_20(x,y)))						//like in fmt #3
 #define GET_P1_24_2(x,y)	((((int)GET_P1_24_1(x,y))&0xfffffe)+(((int)((y)&0x01))<<24))	//like in fmt #3a
 #define GET_P1_24_3(x,y)	(((((int)(x))&0xff)<<16)+((y)&0xfffe)+(((int)(y))<<24))			//like in fmt #5
