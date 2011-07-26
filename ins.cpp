@@ -25,7 +25,7 @@
 #include "ins.hpp"
 
 instruc_t Instructions[] = {
-{"x",            0                               },
+{"<unknown>",   CF_STOP                         },
 {"ADDB",        CF_USE1|CF_USE2|CF_CHG2         },
 {"ADDW",        CF_USE1|CF_USE2|CF_CHG2         },
 {"ADDD",        CF_USE1|CF_USE2|CF_CHG2         },
@@ -154,8 +154,8 @@ instruc_t Instructions[] = {
 {"XORB",        CF_USE1|CF_USE2|CF_CHG2         },
 {"XORW",        CF_USE1|CF_USE2|CF_CHG2         },
 {"XORD",        CF_USE1|CF_USE2|CF_CHG2         },
-{"UKN NOP",		0								},
-{"UKN TRAP",	0								}
+{"UKN NOP",		CF_STOP							},
+{"UKN TRAP",	CF_STOP							}
 };
 
 

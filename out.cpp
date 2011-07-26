@@ -112,6 +112,10 @@ void idaapi cr16c_out(void)
 			out_one_operand(2);
 			break;
 
+		case ooType11:					//4				->2
+			out_one_operand(2);
+			break;
+
 
 
 		default:

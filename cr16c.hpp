@@ -55,12 +55,16 @@
 
 #define GET_P3_14(x,y)		((GET_P3_B136(y)<<8)|(GET_P3_B76(y)<<6)|(GET_P3_B54(x)<<4)|GET_P1_4(y))
 
+#define GET_P3_16(y)		(((y)&0xfffe)|(((int)(y))<<16))
+
 #define GET_P3_B54(x)		(((x)&0x0030)>>4)
 #define GET_P3_B76(x)		(((x)&0xc000)>>14)
 #define GET_P3_B136(x)		(((x)&0x3f00)>>8)
 
 #define GET_P3_1(x)			(((x)&0x0100)>>8)
 #define GET_P2_5(x)			(((x)&0x01f0)>>4)
+
+#define GET_P1_8(x)			((GET_P3_4(x)<<4)|(GET_P1_4(x)))
 
 
 struct t_cmdinfo
@@ -77,6 +81,7 @@ typedef t_cmdinfo t_op12_tbl;
 typedef t_cmdinfo t_op10_tbl;
 typedef t_cmdinfo t_op9_tbl;
 typedef t_cmdinfo t_op7_tbl;
+typedef t_cmdinfo t_op4_tbl;
 
 struct t_op16_tbl
 {
@@ -86,6 +91,11 @@ struct t_op16_tbl
 	enum op_order op_order;
 	int fmt;
 	char len;
+};
+
+struct t_cond_tbl
+{
+	enum inst_names type;
 };
 
 
