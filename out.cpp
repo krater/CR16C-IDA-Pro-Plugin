@@ -66,6 +66,15 @@ void idaapi cr16c_out(void)
 			out_one_operand(1);
 			break;
 
+		case ooType6:					//$7, [r12]0x26666	->1,[2]0
+			out_one_operand(1);
+			out_symbol(',');
+			out_symbol('[');
+			out_one_operand(2);
+			out_symbol(']');
+			out_one_operand(0);
+			break;
+
 		case ooType7:					//$7, [r12]0x26666(r3,r2)
 			out_one_operand(1);
 			out_symbol(',');
@@ -81,6 +90,15 @@ void idaapi cr16c_out(void)
 			out_one_operand(3);
 			out_symbol(']');
 			out_one_operand(2);
+			out_one_operand(0);
+			out_symbol(',');
+			out_one_operand(1);
+			break;
+
+		case ooType9:					//[r12]0x26666,R3	->[2]0,1
+			out_symbol('[');
+			out_one_operand(2);
+			out_symbol(']');
 			out_one_operand(0);
 			out_symbol(',');
 			out_one_operand(1);

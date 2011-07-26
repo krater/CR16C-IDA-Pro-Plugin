@@ -59,6 +59,9 @@
 #define GET_P3_B76(x)		(((x)&0xc000)>>14)
 #define GET_P3_B136(x)		(((x)&0x3f00)>>8)
 
+#define GET_P3_1(x)			(((x)&0x0100)>>8)
+#define GET_P2_5(x)			(((x)&0x01f0)>>4)
+
 
 struct t_cmdinfo
 {
@@ -73,6 +76,7 @@ typedef t_cmdinfo t_subop20_tbl;
 typedef t_cmdinfo t_op12_tbl;
 typedef t_cmdinfo t_op10_tbl;
 typedef t_cmdinfo t_op9_tbl;
+typedef t_cmdinfo t_op7_tbl;
 
 struct t_op16_tbl
 {
