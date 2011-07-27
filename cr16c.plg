@@ -6,13 +6,13 @@
 --------------------Configuration: cr16c - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOKUME~1\IDIOTU~1\LOKALE~1\Temp\RSP117.tmp" with contents
+Creating temporary file "C:\DOKUME~1\IDIOTU~1\LOKALE~1\Temp\RSP54.tmp" with contents
 [
 /nologo /Gz /MT /W3 /GX /O2 /I "../../include" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "cr16c_EXPORTS" /D "__NT__" /D "__IDP__" /FR"Release/" /Fp"Release/cr16c.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
 "C:\ida\yagidps\module\cr16c\ana.cpp"
 ]
-Creating command line "cl.exe @C:\DOKUME~1\IDIOTU~1\LOKALE~1\Temp\RSP117.tmp" 
-Creating temporary file "C:\DOKUME~1\IDIOTU~1\LOKALE~1\Temp\RSP118.tmp" with contents
+Creating command line "cl.exe @C:\DOKUME~1\IDIOTU~1\LOKALE~1\Temp\RSP54.tmp" 
+Creating temporary file "C:\DOKUME~1\IDIOTU~1\LOKALE~1\Temp\RSP55.tmp" with contents
 [
 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib ida.lib /nologo /dll /incremental:no /pdb:"Release/cr16c.pdb" /map:"Release/cr16c.map" /machine:I386 /out:"Release/cr16c.w32" /implib:"Release/cr16c.lib" /libpath:"../../libvc.w32" /export:LPH 
 .\Release\ana.obj
@@ -21,26 +21,28 @@ kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32
 .\Release\out.obj
 .\Release\reg.obj
 ]
-Creating command line "link.exe @C:\DOKUME~1\IDIOTU~1\LOKALE~1\Temp\RSP118.tmp"
+Creating command line "link.exe @C:\DOKUME~1\IDIOTU~1\LOKALE~1\Temp\RSP55.tmp"
 <h3>Output Window</h3>
 Compiling...
 ana.cpp
-Linking...
-   Creating library Release/cr16c.lib and object Release/cr16c.exp
-Creating temporary file "C:\DOKUME~1\IDIOTU~1\LOKALE~1\Temp\RSP11C.bat" with contents
-[
-@echo off
-..\..\bin\mkidp Release\cr16c.w32   "CR16C:CR16C"
-copy Release\cr16c.w32 c:\programme\ida\procs\cr16c.w32
-]
-Creating command line "C:\DOKUME~1\IDIOTU~1\LOKALE~1\Temp\RSP11C.bat"
-ADDING PROCESSOR NAMES...
-        1 Datei(en) kopiert.
+C:\ida\yagidps\module\cr16c\ana.cpp(620) : error C2059: syntax error : ']'
+C:\ida\yagidps\module\cr16c\ana.cpp(621) : error C2059: syntax error : ']'
+C:\ida\yagidps\module\cr16c\ana.cpp(622) : error C2059: syntax error : ']'
+C:\ida\yagidps\module\cr16c\ana.cpp(623) : error C2059: syntax error : ']'
+C:\ida\yagidps\module\cr16c\ana.cpp(624) : error C2059: syntax error : ']'
+C:\ida\yagidps\module\cr16c\ana.cpp(625) : error C2059: syntax error : ']'
+C:\ida\yagidps\module\cr16c\ana.cpp(626) : error C2059: syntax error : ']'
+C:\ida\yagidps\module\cr16c\ana.cpp(627) : error C2059: syntax error : ']'
+C:\ida\yagidps\module\cr16c\ana.cpp(628) : error C2059: syntax error : ']'
+C:\ida\yagidps\module\cr16c\ana.cpp(629) : error C2059: syntax error : ']'
+C:\ida\yagidps\module\cr16c\ana.cpp(630) : error C2059: syntax error : ']'
+C:\ida\yagidps\module\cr16c\ana.cpp(631) : error C2059: syntax error : ']'
+Error executing cl.exe.
 
 
 
 <h3>Results</h3>
-cr16c.w32 - 0 error(s), 0 warning(s)
+cr16c.w32 - 12 error(s), 0 warning(s)
 </pre>
 </body>
 </html>

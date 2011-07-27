@@ -440,9 +440,213 @@ int idaapi cr16c_ana(void)
 
 }
 
+
+t_op8_tbl op8_0000xxxx_tbl[16]=
+{
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_push,	{PAR_reg,		PAR_imm,	PAR_imm},	ooType,		14,	1},
+	{CR16C_pop,		{PAR_reg,		PAR_imm,	PAR_imm},	ooType,		14,	1},
+	{CR16C_popret,	{PAR_reg,		PAR_imm,	PAR_imm},	ooType,		14,	1},
+	{CR16C_addd,	{PAR_imm,		PAR_ind_rp,	PAR_ind_rp},ooType,		12,	1},
+	{CR16C_movd,	{PAR_imm,		PAR_reg,	PAR_ind_rp},ooType,		12,	1},
+	{CR16C_tbit,	{PAR_reg,		PAR_ind_rp,	PAR_imm},	ooType,		15,	1},
+	{CR16C_tbit,	{PAR_reg,		PAR_reg,	PAR_reg},	ooType,		15,	1},
+	{CR16C_null/*scond*/,	{PAR_reg,		PAR_none,	PAR_imm},	ooType,		15,	1},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_null/*jcondb*/,	{PAR_rp2,		PAR_imm,	PAR_imm},	ooType,		15,	1},
+	{CR16C_mulsb,	{PAR_reg,		PAR_ind_rp,	PAR_reg},	ooType,		15,	1},
+	{CR16C_beq0b,	{PAR_reg,		PAR_reg,	PAR_disp2p},ooType,		15,	1},
+	{CR16C_bne0b,	{PAR_reg,		PAR_none,	PAR_disp2p},ooType,		15,	1},
+	{CR16C_beq0w,	{PAR_reg,		PAR_reg,	PAR_disp2p},ooType,		15,	1},
+	{CR16C_bne0w,	{PAR_reg,		PAR_ind_rp,	PAR_disp2p},ooType,		15,	1}
+};
+
+t_op8_tbl op8_001xxxxx_tbl[32]=
+{
+	{CR16C_andb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType0,	25,	2},
+	{CR16C_andb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_andw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_andw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_orb,		{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_orb,		{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_orw,		{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_orw,		{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_xorb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_xorb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_xorw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_xorw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_addub,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_addub,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_adduw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_adduw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_andb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_andb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_andw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_andw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_addcb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_addcb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_addcw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_addcw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_subb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_subb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_subw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_subw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_subcb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_subcb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_subcw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_subcw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1}
+};
+
+t_op8_tbl op8_01000xxx_tbl[8]=
+{
+	{CR16C_null,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_ashub,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		15,	1},
+	{CR16C_ashuw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		15,	1},
+	{CR16C_ashuw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_lshb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_ashuw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_lshw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_lshd,	{PAR_ind_rp,	PAR_reg,	PAR_none},	ooType,		15,	1}
+};
+
+t_op8_tbl op8_0100100x_tbl[2]=
+{
+	{CR16C_ashud,	{PAR_ind_rp,	PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_lshw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		15,	1}
+};
+
+t_op8_tbl op8_0101xxxx_tbl[16]=
+{
+	{CR16C_cmpb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType0,	25,	2},
+	{CR16C_cmpb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_cmpw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_cmpw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_movd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_movd,	{PAR_ind_rp,	PAR_ind_rp,	PAR_none},	ooType,		15,	1},
+	{CR16C_cmpd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_cmpd,	{PAR_ind_rp,	PAR_ind_rp,	PAR_none},	ooType,		15,	1},
+	{CR16C_movb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_movb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType0,	15,	1},
+	{CR16C_movw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_movw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_movxb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_movzb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_movxw,	{PAR_ind_rp,	PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_movzw,	{PAR_ind_rp,	PAR_reg,	PAR_none},	ooType,		15,	1}
+};
+
+t_op8_tbl op8_011xxxxx_tbl[32]=
+{
+	{CR16C_addd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType0,	25,	2},
+	{CR16C_addd,	{PAR_ind_rp,	PAR_ind_rp,	PAR_none},	ooType,		15,	1},
+	{CR16C_mulsw,	{PAR_ind_rp,	PAR_reg,	PAR_none},	ooType,		15,	2},
+	{CR16C_muluw,	{PAR_ind_rp,	PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_mulb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_mulb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_mulw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_mulw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_cbitb,	{PAR_abs,		PAR_imm,	PAR_rs},	ooType,		8,	2},
+	{CR16C_cbitw,	{PAR_ind_rp,	PAR_imm,	PAR_disp},	ooType0,	16,	2},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_cbitw,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType,		15,	2},
+	{CR16C_cbitw,	{PAR_abs,		PAR_imm,	PAR_none},	ooType,		12,	2},
+	{CR16C_sbitb,	{PAR_abs,		PAR_imm,	PAR_rs},	ooType,		8,	2},
+	{CR16C_sbitw,	{PAR_ind_rp,	PAR_imm,	PAR_disp},	ooType,		16,	2},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_sbitw,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType,		15,	2},
+	{CR16C_sbitw,	{PAR_abs,		PAR_imm,	PAR_none},	ooType,		12,	2},
+	{CR16C_tbitb,	{PAR_abs,		PAR_imm,	PAR_rs},	ooType,		8,	2},
+	{CR16C_tbitw,	{PAR_ind_rp,	PAR_imm,	PAR_disp},	ooType,		16,	2},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_tbitw,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType,		15,	1},
+	{CR16C_tbitw,	{PAR_abs,		PAR_imm,	PAR_none},	ooType,		12,	2}
+};
+
+
+t_op8_tbl op8_100000xx_tbl[4]=
+{
+	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
+	{CR16C_storb,	{PAR_abs,		PAR_imm,	PAR_none},	ooType,		12,	2},
+	{CR16C_storb,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType,		15,	1},
+	{CR16C_storb,	{PAR_ind_rp,	PAR_imm,	PAR_disp},	ooType,		16,	2}
+};
+
+t_op8_tbl op8_10000111_tbl[4]=
+{
+	{CR16C_loadd,	{PAR_abs,		PAR_ind_rp,	PAR_none},	ooType,		12,	2}
+};
+
+t_op8_tbl op8_1000100x_tbl[4]=
+{
+	{CR16C_loadb,	{PAR_abs,		PAR_reg,	PAR_none},	ooType,		12,	2},
+	{CR16C_loadw,	{PAR_abs,		PAR_reg,	PAR_none},	ooType,		12,	2}
+};
+
+t_op8_tbl op8_110000xx_tbl[4]=
+{
+	{CR16C_bal,		{PAR_disp2,		PAR_none,	PAR_none},	ooType,		5,	2},
+	{CR16C_storw,	{PAR_abs,		PAR_imm,	PAR_none},	ooType,		12,	2},
+	{CR16C_storw,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType,		15,	1},
+	{CR16C_storw,	{PAR_ind_rp,	PAR_imm,	PAR_disp},	ooType,		16,	2}
+};
+
+t_op8_tbl op8_11000111_tbl[4]=
+{
+	{CR16C_stord,	{PAR_abs,		PAR_ind_rp,	PAR_none},	ooType,		12,	2}
+};
+
+t_op8_tbl op8_1100100x_tbl[4]=
+{
+	{CR16C_storb,	{PAR_abs,		PAR_reg,	PAR_none},	ooType,		12,	2},
+	{CR16C_storw,	{PAR_abs,		PAR_reg,	PAR_none},	ooType,		12,	2}
+};
+
+
+
+
 void analyze_opcode8(ushort w1)
 {
-	cmd.size=0;
+	t_cmdinfo tmpcmd;
+
+	if((w1&0xf000)==0x0000)			tmpcmd=op8_0000xxxx_tbl[];
+	else if((w1&0xe000)==0x2000)	tmpcmd=op8_001xxxxx_tbl[];
+	else if((w1&0xf800)==0x4000)	tmpcmd=op8_01000xxx_tbl[];
+	else if((w1&0xfe00)==0x4800)	tmpcmd=op8_0100100x_tbl[];
+	else if((w1&0xf000)==0x5000)	tmpcmd=op8_0101xxxx_tbl[];
+	else if((w1&0xe000)==0x6000)	tmpcmd=op8_011xxxxx_tbl[];
+	else if((w1&0xfc00)==0x8000)	tmpcmd=op8_100000xx_tbl[];
+	else if((w1&0xff00)==0x8700)	tmpcmd=op8_10000111_tbl[];
+	else if((w1&0xfe00)==0x8800)	tmpcmd=op8_1000100x_tbl[];
+	else if((w1&0xfc00)==0xc000)	tmpcmd=op8_110000xx_tbl[];
+	else if((w1&0xff00)==0xc700)	tmpcmd=op8_11000111_tbl[];
+	else if((w1&0xfe00)==0xc800)	tmpcmd=op8_1100100x_tbl[];
+	else {cmd.size=0;return;}
+
+	ushort w2;
+
+	switch(tmpcmd.fmt)
+	{
+		case 5:
+		case 12:
+		case 16:
+		case 25:
+			w2=ua_next_word();
+			break;
+		default:
+			break;
+	}
+
+	fill_cmd(tmpcmd,w1,w2);
+
 }
 
 

@@ -80,6 +80,7 @@ typedef t_cmdinfo t_subop20_tbl;
 typedef t_cmdinfo t_op12_tbl;
 typedef t_cmdinfo t_op10_tbl;
 typedef t_cmdinfo t_op9_tbl;
+typedef t_cmdinfo t_op8_tbl;
 typedef t_cmdinfo t_op7_tbl;
 typedef t_cmdinfo t_op4_tbl;
 
@@ -90,7 +91,7 @@ struct t_op16_tbl
 	enum par_types p[3];
 	enum op_order op_order;
 	int fmt;
-	char len;
+	char lenunused;
 };
 
 struct t_cond_tbl
