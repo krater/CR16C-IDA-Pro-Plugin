@@ -181,8 +181,9 @@ int idaapi cr16c_emu(void)
    //Add the sequential flow as long as CF_STOP is not set
    //if((cmd.get_canon_feature() & CF_STOP) == 0) {
       //cmd.ea + cmd.size computes the address of the next instruction
-      ua_add_cref(0, cmd.ea + cmd.size, fl_F);
+	if((cmd.get_canon_feature() & CF_STOP) == 0)
+		ua_add_cref(0, cmd.ea + cmd.size, fl_F);
    //}   
-   return 1;
+	return 1;
 }
 

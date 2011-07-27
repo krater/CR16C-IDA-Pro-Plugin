@@ -463,7 +463,7 @@ t_op8_tbl op8_0000xxxx_tbl[16]=
 
 t_op8_tbl op8_001xxxxx_tbl[32]=
 {
-	{CR16C_andb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType0,	25,	2},
+	{CR16C_andb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
 	{CR16C_andb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
 	{CR16C_andw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
 	{CR16C_andw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
@@ -517,7 +517,7 @@ t_op8_tbl op8_0100100x_tbl[2]=
 
 t_op8_tbl op8_0101xxxx_tbl[16]=
 {
-	{CR16C_cmpb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType0,	25,	2},
+	{CR16C_cmpb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
 	{CR16C_cmpb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
 	{CR16C_cmpw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
 	{CR16C_cmpw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
@@ -526,7 +526,7 @@ t_op8_tbl op8_0101xxxx_tbl[16]=
 	{CR16C_cmpd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType,		25,	2},
 	{CR16C_cmpd,	{PAR_ind_rp,	PAR_ind_rp,	PAR_none},	ooType,		15,	1},
 	{CR16C_movb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
-	{CR16C_movb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType0,	15,	1},
+	{CR16C_movb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
 	{CR16C_movw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
 	{CR16C_movw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
 	{CR16C_movxb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
@@ -537,7 +537,7 @@ t_op8_tbl op8_0101xxxx_tbl[16]=
 
 t_op8_tbl op8_011xxxxx_tbl[32]=
 {
-	{CR16C_addd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType0,	25,	2},
+	{CR16C_addd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType,		25,	2},
 	{CR16C_addd,	{PAR_ind_rp,	PAR_ind_rp,	PAR_none},	ooType,		15,	1},
 	{CR16C_mulsw,	{PAR_ind_rp,	PAR_reg,	PAR_none},	ooType,		15,	2},
 	{CR16C_muluw,	{PAR_ind_rp,	PAR_reg,	PAR_none},	ooType,		15,	1},
@@ -580,12 +580,12 @@ t_op8_tbl op8_100000xx_tbl[4]=
 	{CR16C_storb,	{PAR_ind_rp,	PAR_imm,	PAR_disp},	ooType,		16,	2}
 };
 
-t_op8_tbl op8_10000111_tbl[4]=
+t_op8_tbl op8_10000111_tbl[1]=
 {
 	{CR16C_loadd,	{PAR_abs,		PAR_ind_rp,	PAR_none},	ooType,		12,	2}
 };
 
-t_op8_tbl op8_1000100x_tbl[4]=
+t_op8_tbl op8_1000100x_tbl[2]=
 {
 	{CR16C_loadb,	{PAR_abs,		PAR_reg,	PAR_none},	ooType,		12,	2},
 	{CR16C_loadw,	{PAR_abs,		PAR_reg,	PAR_none},	ooType,		12,	2}
@@ -599,15 +599,20 @@ t_op8_tbl op8_110000xx_tbl[4]=
 	{CR16C_storw,	{PAR_ind_rp,	PAR_imm,	PAR_disp},	ooType,		16,	2}
 };
 
-t_op8_tbl op8_11000111_tbl[4]=
+t_op8_tbl op8_11000111_tbl[1]=
 {
 	{CR16C_stord,	{PAR_abs,		PAR_ind_rp,	PAR_none},	ooType,		12,	2}
 };
 
-t_op8_tbl op8_1100100x_tbl[4]=
+t_op8_tbl op8_1100100x_tbl[2]=
 {
 	{CR16C_storb,	{PAR_abs,		PAR_reg,	PAR_none},	ooType,		12,	2},
 	{CR16C_storw,	{PAR_abs,		PAR_reg,	PAR_none},	ooType,		12,	2}
+};
+
+t_op8_tbl op8_nop_tbl[1]=
+{
+	{CR16C_nop,		{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1}
 };
 
 
@@ -617,18 +622,19 @@ void analyze_opcode8(ushort w1)
 {
 	t_cmdinfo tmpcmd;
 
-	if((w1&0xf000)==0x0000)			tmpcmd=op8_0000xxxx_tbl[];
-	else if((w1&0xe000)==0x2000)	tmpcmd=op8_001xxxxx_tbl[];
-	else if((w1&0xf800)==0x4000)	tmpcmd=op8_01000xxx_tbl[];
-	else if((w1&0xfe00)==0x4800)	tmpcmd=op8_0100100x_tbl[];
-	else if((w1&0xf000)==0x5000)	tmpcmd=op8_0101xxxx_tbl[];
-	else if((w1&0xe000)==0x6000)	tmpcmd=op8_011xxxxx_tbl[];
-	else if((w1&0xfc00)==0x8000)	tmpcmd=op8_100000xx_tbl[];
-	else if((w1&0xff00)==0x8700)	tmpcmd=op8_10000111_tbl[];
-	else if((w1&0xfe00)==0x8800)	tmpcmd=op8_1000100x_tbl[];
-	else if((w1&0xfc00)==0xc000)	tmpcmd=op8_110000xx_tbl[];
-	else if((w1&0xff00)==0xc700)	tmpcmd=op8_11000111_tbl[];
-	else if((w1&0xfe00)==0xc800)	tmpcmd=op8_1100100x_tbl[];
+	if(w1==0x2c00)					tmpcmd=op8_nop_tbl[0];
+	else if((w1&0xf000)==0x0000)	tmpcmd=op8_0000xxxx_tbl[(w1&0x0f00)>>8];
+	else if((w1&0xe000)==0x2000)	tmpcmd=op8_001xxxxx_tbl[(w1&0x1f00)>>8];
+	else if((w1&0xf800)==0x4000)	tmpcmd=op8_01000xxx_tbl[(w1&0x0700)>>8];
+	else if((w1&0xfe00)==0x4800)	tmpcmd=op8_0100100x_tbl[(w1&0x0100)>>8];
+	else if((w1&0xf000)==0x5000)	tmpcmd=op8_0101xxxx_tbl[(w1&0x0f00)>>8];
+	else if((w1&0xe000)==0x6000)	tmpcmd=op8_011xxxxx_tbl[(w1&0x1f00)>>8];
+	else if((w1&0xfc00)==0x8000)	tmpcmd=op8_100000xx_tbl[(w1&0x0300)>>8];
+	else if((w1&0xff00)==0x8700)	tmpcmd=op8_10000111_tbl[0];
+	else if((w1&0xfe00)==0x8800)	tmpcmd=op8_1000100x_tbl[(w1&0x0100)>>8];
+	else if((w1&0xfc00)==0xc000)	tmpcmd=op8_110000xx_tbl[(w1&0x0300)>>8];
+	else if((w1&0xff00)==0xc700)	tmpcmd=op8_11000111_tbl[0];
+	else if((w1&0xfe00)==0xc800)	tmpcmd=op8_1100100x_tbl[(w1&0x0100)>>8];
 	else {cmd.size=0;return;}
 
 	ushort w2;
@@ -638,7 +644,6 @@ void analyze_opcode8(ushort w1)
 		case 5:
 		case 12:
 		case 16:
-		case 25:
 			w2=ua_next_word();
 			break;
 		default:
@@ -992,6 +997,12 @@ void get_parametervalues(int fmt,ushort w1,ushort w2,struct t_pars &pars)
 			pars.par[2]=0;
 			break;
 
+		case 8:
+			pars.par[0]=GET_P1_20(w1,w2);
+			pars.par[1]=GET_P2_3(w1);
+			pars.par[2]=GET_P3_1(w1);
+			break;
+
 		case 9:
 			pars.par[0]=GET_P1_4(w1);
 			pars.par[1]=GET_P2_3(w1);
@@ -1010,10 +1021,39 @@ void get_parametervalues(int fmt,ushort w1,ushort w2,struct t_pars &pars)
 			pars.par[2]=0;
 			break;
 
-		case 13:
+		case 12:
 			pars.par[0]=GET_P1_20(w1,w2);
 			pars.par[1]=GET_P2_4(w1);
+			pars.par[2]=0;
+			break;
+
+		case 13:
+			pars.par[0]=GET_P1_4(w1);
+			pars.par[1]=GET_P2_4(w1);
+			pars.par[2]=GET_P3_1_13(w1);
+			break;
+		
+		case 15:
+			pars.par[0]=GET_P1_4(w1);
+			pars.par[1]=GET_P2_4(w1);
 			pars.par[2]=GET_P3_1(w1);
+			break;
+
+		case 16:
+			pars.par[0]=GET_P1_4(w1);
+			pars.par[1]=w2;
+			pars.par[2]=0;
+			break;
+
+		case 25:	// 15/16
+			pars.par[0]=GET_P1_4(w1);
+
+			if(GET_P2_4(w1)==0x0b)
+				pars.par[1]=ua_next_word();//here we load w2, not w3 !
+			else
+				pars.par[1]=GET_P2_4(w1);
+
+			pars.par[2]=0;
 			break;
 
 		case 17:

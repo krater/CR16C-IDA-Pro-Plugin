@@ -61,7 +61,8 @@
 #define GET_P3_B76(x)		(((x)&0xc000)>>14)
 #define GET_P3_B136(x)		(((x)&0x3f00)>>8)
 
-#define GET_P3_1(x)			(((x)&0x0100)>>8)
+#define GET_P3_1_13(x)		(((x)&0x0100)>>8)
+#define GET_P3_1(x)			(((x)&0x0080)>>7)
 #define GET_P2_5(x)			(((x)&0x01f0)>>4)
 
 #define GET_P1_8(x)			((GET_P3_4(x)<<4)|(GET_P1_4(x)))

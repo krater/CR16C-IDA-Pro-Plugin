@@ -116,7 +116,7 @@ instruc_t Instructions[] = {
 {"ORW",         CF_USE1|CF_USE2|CF_CHG2         },
 {"ORD",         CF_USE1|CF_USE2|CF_CHG2         },
 {"POP",         CF_USE1|CF_USE2|CF_CHG2         },
-{"POPRET",      CF_USE1|CF_USE2|CF_CHG2         },
+{"POPRET",      CF_USE1|CF_USE2|CF_CHG2|CF_STOP },
 {"PUSH",        CF_USE1|CF_USE2                 },
 {"RETX",        CF_STOP                         },
 {"SBITB",       CF_USE1|CF_USE2                 },
