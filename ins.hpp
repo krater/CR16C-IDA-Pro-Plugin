@@ -169,6 +169,7 @@ enum par_types
 {
 PAR_none,
 PAR_reg,
+PAR_regx,
 PAR_rp,
 PAR_rp2,
 PAR_rrp,
@@ -184,8 +185,10 @@ PAR_ind_prp,
 PAR_ind_rrp,
 PAR_abs,
 PAR_imm,
+PAR_imm1,
 PAR_immn,
 PAR_pr,
+PAR_ra,
 PAR_prd,
 PAR_vect
 };

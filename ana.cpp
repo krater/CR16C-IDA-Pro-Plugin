@@ -444,21 +444,21 @@ int idaapi cr16c_ana(void)
 t_op8_tbl op8_0000xxxx_tbl[16]=
 {
 	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
-	{CR16C_push,	{PAR_reg,		PAR_imm,	PAR_imm},	ooType,		14,	1},
-	{CR16C_pop,		{PAR_reg,		PAR_imm,	PAR_imm},	ooType,		14,	1},
-	{CR16C_popret,	{PAR_reg,		PAR_imm,	PAR_imm},	ooType,		14,	1},
-	{CR16C_addd,	{PAR_imm,		PAR_ind_rp,	PAR_ind_rp},ooType,		12,	1},
-	{CR16C_movd,	{PAR_imm,		PAR_reg,	PAR_ind_rp},ooType,		12,	1},
-	{CR16C_tbit,	{PAR_reg,		PAR_ind_rp,	PAR_imm},	ooType,		15,	1},
-	{CR16C_tbit,	{PAR_reg,		PAR_reg,	PAR_reg},	ooType,		15,	1},
-	{CR16C_null/*scond*/,	{PAR_reg,		PAR_none,	PAR_imm},	ooType,		15,	1},
+	{CR16C_push,	{PAR_regx,		PAR_imm1,	PAR_ra},	ooType12,	14,	1},
+	{CR16C_pop,		{PAR_regx,		PAR_imm1,	PAR_ra},	ooType12,	14,	1},
+	{CR16C_popret,	{PAR_regx,		PAR_imm1,	PAR_ra},	ooType12,	14,	1},
+	{CR16C_addd,	{PAR_imm,		PAR_ind_rp,	PAR_none},	ooType5,	12,	2},
+	{CR16C_movd,	{PAR_imm,		PAR_ind_rp,	PAR_none},	ooType5,	12,	2},
+	{CR16C_tbit,	{PAR_reg,		PAR_imm,	PAR_none},	ooType4,	15,	1},
+	{CR16C_tbit,	{PAR_reg,		PAR_reg,	PAR_none},	ooType4,	15,	1},
+	{CR16C_null,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		15,	1},/*scond*/
 	{CR16C_null,	{PAR_none,		PAR_none,	PAR_none},	ooType0,	0,	1},
-	{CR16C_null/*jcondb*/,	{PAR_rp2,		PAR_imm,	PAR_imm},	ooType,		15,	1},
-	{CR16C_mulsb,	{PAR_reg,		PAR_ind_rp,	PAR_reg},	ooType,		15,	1},
-	{CR16C_beq0b,	{PAR_reg,		PAR_reg,	PAR_disp2p},ooType,		15,	1},
-	{CR16C_bne0b,	{PAR_reg,		PAR_none,	PAR_disp2p},ooType,		15,	1},
-	{CR16C_beq0w,	{PAR_reg,		PAR_reg,	PAR_disp2p},ooType,		15,	1},
-	{CR16C_bne0w,	{PAR_reg,		PAR_ind_rp,	PAR_disp2p},ooType,		15,	1}
+	{CR16C_null,	{PAR_rp2,		PAR_imm,	PAR_none},	ooType,		15,	1},/*jcondb*/
+	{CR16C_mulsb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType4,	15,	1},
+	{CR16C_beq0b,	{PAR_reg,		PAR_disp2p,	PAR_none},	ooType5,	15,	1},
+	{CR16C_bne0b,	{PAR_reg,		PAR_disp2p,	PAR_none},	ooType5,	15,	1},
+	{CR16C_beq0w,	{PAR_reg,		PAR_disp2p,	PAR_none},	ooType5,	15,	1},
+	{CR16C_bne0w,	{PAR_reg,		PAR_disp2p,	PAR_none},	ooType5,	15,	1}
 };
 
 t_op8_tbl op8_001xxxxx_tbl[32]=
@@ -860,7 +860,8 @@ void analyze_opcode12(ushort w1)
 
 	if(op12_tbl[opcode].type==CR16C_null)
 	{
-		cmd.itype=CR16C_ukntrap;
+		cmd.size=0;
+		return;
 	}
 	else
 	{
@@ -930,14 +931,9 @@ void analyze_opcode16(ushort w1)
 	ushort w2=ua_next_word();
 
 	if(op16_tbl[opcode].type==CR16C_null)
-	{
 		tmpcmd=op16_tbl[opcode].subop[GET_P4_4(w2)];
-		//cmd.itype=tmpcmd.type;
-	}
 	else
 	{
-		//cmd.itype=op16_tbl[opcode].type;
-
 		tmpcmd.type=op16_tbl[opcode].type;
 		tmpcmd.fmt=op16_tbl[opcode].fmt;
 		tmpcmd.p[0]=op16_tbl[opcode].p[0];
@@ -946,9 +942,22 @@ void analyze_opcode16(ushort w1)
 		tmpcmd.op_order=op16_tbl[opcode].op_order;
 	}
 
+	if(tmpcmd.type==CR16C_ukntrap)
+	{
+		cmd.size=0;
+		return;
+	}
+
 	fill_cmd(tmpcmd,w1,w2);
 
 }
+
+
+
+//----------------------------------------------------------------------------------
+
+
+
 
 void fill_cmd(t_cmdinfo &tmpcmd,ushort w1,ushort w2)
 {
@@ -981,15 +990,20 @@ void get_parametervalues(int fmt,ushort w1,ushort w2,struct t_pars &pars)
 			pars.par[1]=GET_P2_4(w2);
 			pars.par[2]=0;
 			break;
-		case 24: //3a
+		//for 4 see default
+		case 24: //3a  //buggy
 			pars.par[0]=GET_P1_24_1(w2,ua_next_word());
 			pars.par[1]=GET_P2_4(w2);
 			pars.par[2]=0;
 			break;
-		case 5:
+		case 5: //buggy
+			pars.par[0]=GET_P1_24_1(w2,ua_next_word());
+			pars.par[1]=GET_P2_4(w2);
+			pars.par[2]=0;
 			break;
-		case 6:
-			break;
+
+/*		case 6:
+			break;*/ //realised in analyze_opcode13()
 
 		case 7:
 			pars.par[0]=GET_P1_20(w1,w2);
@@ -1032,11 +1046,17 @@ void get_parametervalues(int fmt,ushort w1,ushort w2,struct t_pars &pars)
 			pars.par[1]=GET_P2_4(w1);
 			pars.par[2]=GET_P3_1_13(w1);
 			break;
+
+		case 14:
+			pars.par[0]=GET_P1_4(w1);
+			pars.par[1]=GET_P2_3(w1);
+			pars.par[2]=GET_P3_1(w1);
+			break;
 		
 		case 15:
 			pars.par[0]=GET_P1_4(w1);
 			pars.par[1]=GET_P2_4(w1);
-			pars.par[2]=GET_P3_1(w1);
+			pars.par[2]=0;
 			break;
 
 		case 16:
@@ -1129,6 +1149,13 @@ void set_operand(int opnum,enum par_types ptype,int value)
 			cmd.Operands[opnum].reg=value;
 			break;
 
+		case PAR_regx:
+			cmd.Operands[opnum].type=o_reg;
+			if(value>=rR12_L)
+				value+=16;
+			cmd.Operands[opnum].reg=value;
+			break;
+
 		case PAR_rp:
 			cmd.Operands[opnum].type=o_reg;
 			cmd.Operands[opnum].reg=value+rRP0;
@@ -1142,6 +1169,19 @@ void set_operand(int opnum,enum par_types ptype,int value)
 		case PAR_pr:
 			cmd.Operands[opnum].type=o_reg;
 			cmd.Operands[opnum].reg=value+rDBS;
+			break;
+
+		case PAR_ra:
+			if(value)
+			{
+				cmd.Operands[opnum].type=o_reg;
+				cmd.Operands[opnum].reg=rRPRA;
+			}
+			else
+			{
+				cmd.Operands[opnum].type=o_void;
+				cmd.Operands[opnum].reg=0;
+			}
 			break;
 
 		case PAR_vect:
@@ -1174,6 +1214,10 @@ void set_operand(int opnum,enum par_types ptype,int value)
 			cmd.Operands[opnum].type=o_displ;
 			cmd.Operands[opnum].value=(value*2)+cmd.ea;
 			break;
+		case PAR_disp2p:
+			cmd.Operands[opnum].type=o_displ;
+			cmd.Operands[opnum].value=((value+1)*2)+cmd.ea;
+			break;
 		case PAR_ind_rp:
 		case PAR_ind_reg:
 		case PAR_ind_prp:	//if CFG.SR set: prp is reg else prp is rrp
@@ -1194,9 +1238,15 @@ void set_operand(int opnum,enum par_types ptype,int value)
 			cmd.Operands[opnum].type=o_mem;
 			cmd.Operands[opnum].value=value;
 			break;
+
 		case PAR_imm:
 			cmd.Operands[opnum].type=o_imm;
 			cmd.Operands[opnum].value=value;
+			cmd.Operands[opnum].dtyp=dt_dword;
+			break;
+		case PAR_imm1:
+			cmd.Operands[opnum].type=o_imm;
+			cmd.Operands[opnum].value=value+1;
 			cmd.Operands[opnum].dtyp=dt_dword;
 			break;
 		case PAR_immn:

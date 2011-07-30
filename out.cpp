@@ -116,6 +116,16 @@ void idaapi cr16c_out(void)
 			out_one_operand(2);
 			break;
 
+		case ooType12:					//y,x{,z}		->1,0{,2}
+			out_one_operand(1);
+			out_symbol(',');
+			out_one_operand(0);
+			if(cmd.Op3.type != o_void) 
+			{
+				out_symbol(',');
+				out_one_operand(2);
+			}
+			break;
 
 
 		default:
