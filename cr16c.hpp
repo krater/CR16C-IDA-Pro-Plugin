@@ -35,6 +35,11 @@
 #define null 0
 
 
+#define CAST24TO32(x)		(((x)&0x800000)?(0xff000000|(x)):(x))
+#define CAST16TO32(x)		(((x)&0x800000)?(0xff000000|(x)):(x))
+#define CAST4TO32(x)		(((x)&0x8)?(0xfffffff0|(x)):(x))
+
+
 #define GET_P1_3(x)			(((x)&0x0007))
 #define GET_P2_3(x)			(((x)&0x0070)>>4)
 
@@ -47,15 +52,16 @@
 #define GET_P1_20(x,y)		((((int)GET_P1_4(x))<<16)+(y))
 #define GET_P3_20(x,y)		((((int)GET_P3_4(x))<<16)+(y))
 
-#define GET_P1_24_1(x,y)	((((int)GET_P1_4(x))<<20)+(GET_P3_20(x,y)))						//like in fmt #3
-#define GET_P1_24_2(x,y)	((((int)GET_P1_24_1(x,y))&0xfffffe)+(((int)((y)&0x01))<<24))	//like in fmt #3a
-#define GET_P1_24_3(x,y)	(((((int)(x))&0xff)<<16)+((y)&0xfffe)+(((int)(y))<<24))			//like in fmt #5
+#define GET_P1_24_1(x,y)	CAST24TO32(((((int)GET_P1_4(x))<<20)+(GET_P3_20(x,y))))						//like in fmt #3
+#define GET_P1_24_2(x,y)	CAST24TO32(((((int)GET_P1_24_1(x,y))&0xfffffe)+(((int)((y)&0x01))<<24)))	//like in fmt #3a
+#define GET_P1_24_3(x,y)	CAST24TO32((((int)((x)&0xff))<<15)+(((y)&0xffff)>>1)+(((int)((y)&0x1))<<23))//like in fmt #5
+
 
 #define GET_P2_32(x,y)		(((x)<<16)|(y))
 
 #define GET_P3_14(x,y)		((GET_P3_B136(y)<<8)|(GET_P3_B76(y)<<6)|(GET_P3_B54(x)<<4)|GET_P1_4(y))
 
-#define GET_P3_16(y)		(((y)&0xfffe)|(((int)(y))<<16))
+#define GET_P3_16(y)		CAST16TO32(((((y)&0xfffe)>>1)|(((int)(y)&0x1)<<15)))
 
 #define GET_P3_B54(x)		(((x)&0x0030)>>4)
 #define GET_P3_B76(x)		(((x)&0xc000)>>14)

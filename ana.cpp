@@ -375,6 +375,8 @@ t_op4_tbl op4_other_tbl[8]=
 
 int idaapi cr16c_ana(void) 
 {
+	cmd.size=0;
+
 	if(cmd.ea&0x01)			//only process even addresses
 		return 0;
 
@@ -463,15 +465,15 @@ t_op8_tbl op8_0000xxxx_tbl[16]=
 
 t_op8_tbl op8_001xxxxx_tbl[32]=
 {
-	{CR16C_andb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_andb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType4,	25,	2},
 	{CR16C_andb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
 	{CR16C_andw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
-	{CR16C_andw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_andw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType4,	15,	1},
 	{CR16C_orb,		{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
 	{CR16C_orb,		{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
 	{CR16C_orw,		{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
 	{CR16C_orw,		{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
-	{CR16C_xorb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_xorb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType4,	25,	2},//sgds
 	{CR16C_xorb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
 	{CR16C_xorw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
 	{CR16C_xorw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
@@ -479,10 +481,10 @@ t_op8_tbl op8_001xxxxx_tbl[32]=
 	{CR16C_addub,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
 	{CR16C_adduw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
 	{CR16C_adduw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
-	{CR16C_andb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
-	{CR16C_andb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
-	{CR16C_andw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
-	{CR16C_andw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_addb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType4,	25,	2},
+	{CR16C_addb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_addw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType4,	25,	2},
+	{CR16C_addw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
 	{CR16C_addcb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
 	{CR16C_addcb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
 	{CR16C_addcw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
@@ -505,7 +507,7 @@ t_op8_tbl op8_01000xxx_tbl[8]=
 	{CR16C_ashuw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
 	{CR16C_lshb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
 	{CR16C_ashuw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
-	{CR16C_lshw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_lshw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType4,	15,	1},
 	{CR16C_lshd,	{PAR_ind_rp,	PAR_reg,	PAR_none},	ooType,		15,	1}
 };
 
@@ -517,20 +519,20 @@ t_op8_tbl op8_0100100x_tbl[2]=
 
 t_op8_tbl op8_0101xxxx_tbl[16]=
 {
-	{CR16C_cmpb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_cmpb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType4,	25,	2},
 	{CR16C_cmpb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
-	{CR16C_cmpw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_cmpw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType4,	25,	2},
 	{CR16C_cmpw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
 	{CR16C_movd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType,		25,	2},
-	{CR16C_movd,	{PAR_ind_rp,	PAR_ind_rp,	PAR_none},	ooType,		15,	1},
-	{CR16C_cmpd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_movd,	{PAR_ind_rp,	PAR_ind_rp,	PAR_none},	ooType4,	15,	1},
+	{CR16C_cmpd,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType4,	25,	2},
 	{CR16C_cmpd,	{PAR_ind_rp,	PAR_ind_rp,	PAR_none},	ooType,		15,	1},
-	{CR16C_movb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
-	{CR16C_movb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
-	{CR16C_movw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_movb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType4,	25,	2},
+	{CR16C_movb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType4,	15,	1},
+	{CR16C_movw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType4,	25,	2},
 	{CR16C_movw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
 	{CR16C_movxb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
-	{CR16C_movzb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
+	{CR16C_movzb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType4,	15,	1},
 	{CR16C_movxw,	{PAR_ind_rp,	PAR_reg,	PAR_none},	ooType,		15,	1},
 	{CR16C_movzw,	{PAR_ind_rp,	PAR_reg,	PAR_none},	ooType,		15,	1}
 };
@@ -543,7 +545,7 @@ t_op8_tbl op8_011xxxxx_tbl[32]=
 	{CR16C_muluw,	{PAR_ind_rp,	PAR_reg,	PAR_none},	ooType,		15,	1},
 	{CR16C_mulb,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
 	{CR16C_mulb,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
-	{CR16C_mulw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType,		25,	2},
+	{CR16C_mulw,	{PAR_reg,		PAR_imm,	PAR_none},	ooType4,	25,	2},
 	{CR16C_mulw,	{PAR_reg,		PAR_reg,	PAR_none},	ooType,		15,	1},
 	{CR16C_cbitb,	{PAR_abs,		PAR_imm,	PAR_rs},	ooType,		8,	2},
 	{CR16C_cbitw,	{PAR_ind_rp,	PAR_imm,	PAR_disp},	ooType0,	16,	2},
@@ -593,7 +595,7 @@ t_op8_tbl op8_1000100x_tbl[2]=
 
 t_op8_tbl op8_110000xx_tbl[4]=
 {
-	{CR16C_bal,		{PAR_disp2,		PAR_none,	PAR_none},	ooType,		5,	2},
+	{CR16C_bal,		{PAR_ind_rp,	PAR_disp2o,	PAR_none},	ooType5,	5,	2},
 	{CR16C_storw,	{PAR_abs,		PAR_imm,	PAR_none},	ooType,		12,	2},
 	{CR16C_storw,	{PAR_ind_rp,	PAR_imm,	PAR_none},	ooType,		15,	1},
 	{CR16C_storw,	{PAR_ind_rp,	PAR_imm,	PAR_disp},	ooType,		16,	2}
@@ -654,6 +656,16 @@ void analyze_opcode8(ushort w1)
 
 }
 
+/*
+TODO: 
+	Scond missing,
+	jcondb missing
+ROM:050E 9F 07                             TBIT    r9,sp_l
+should be
+TBIT $9,sp_l
+check all addresses in jump commands
+*/
+
 
 t_cond_tbl cond_branch_tbl[16]=
 {
@@ -687,19 +699,19 @@ void analyze_opcode4(ushort w1)
 		//branch
 		tmpcmd.type=cond_branch_tbl[GET_P2_4(w1)].type;
 
-		if((w1&0xff0f)==0x1800)
+		if((w1&0xff0f)==0x1800)				//big offset (used for all negative values)
 		{
 			tmpcmd.p[0]=PAR_none;
 			tmpcmd.p[1]=PAR_none;
-			tmpcmd.p[2]=PAR_disp2o;			//buggy
+			tmpcmd.p[2]=PAR_disp2o;
 			tmpcmd.op_order=ooType11;
 			tmpcmd.fmt=22;
 		}
-		else
+		else								//little offset (only positive values)
 		{
 			tmpcmd.p[0]=PAR_disp2o;
 			tmpcmd.p[1]=PAR_none;
-			tmpcmd.p[2]=PAR_none;			//untested for negative offsets
+			tmpcmd.p[2]=PAR_none;
 			tmpcmd.op_order=ooType2;
 			tmpcmd.fmt=21;
 		}
@@ -973,6 +985,7 @@ void fill_cmd(t_cmdinfo &tmpcmd,ushort w1,ushort w2)
 
 void get_parametervalues(int fmt,ushort w1,ushort w2,struct t_pars &pars)
 {
+	ushort w3=0;
 	switch(fmt)
 	{
 		case 1:
@@ -981,24 +994,27 @@ void get_parametervalues(int fmt,ushort w1,ushort w2,struct t_pars &pars)
 			pars.par[2]=GET_P3_4(w2);
 			break;
 		case 2:
+			w3=ua_next_word();
 			pars.par[0]=GET_P1_4(w2);
 			pars.par[1]=GET_P2_4(w2);
-			pars.par[2]=GET_P3_20(w2,ua_next_word());
+			pars.par[2]=GET_P3_20(w2,w3);
 			break;
 		case 3:
-			pars.par[0]=GET_P1_24_1(w2,ua_next_word());
+			w3=ua_next_word();
+			pars.par[0]=GET_P1_24_1(w2,w3);
 			pars.par[1]=GET_P2_4(w2);
 			pars.par[2]=0;
 			break;
 		//for 4 see default
 		case 24: //3a  //buggy
-			pars.par[0]=GET_P1_24_1(w2,ua_next_word());
+			w3=ua_next_word();
+			pars.par[0]=GET_P1_24_1(w2,w3);
 			pars.par[1]=GET_P2_4(w2);
 			pars.par[2]=0;
 			break;
-		case 5: //buggy
-			pars.par[0]=GET_P1_24_1(w2,ua_next_word());
-			pars.par[1]=GET_P2_4(w2);
+		case 5:
+			pars.par[0]=rRA_L;
+			pars.par[1]=GET_P1_24_3(w1,w2);
 			pars.par[2]=0;
 			break;
 
@@ -1113,8 +1129,9 @@ void get_parametervalues(int fmt,ushort w1,ushort w2,struct t_pars &pars)
 			break;
 
 		case 23:
+			w3=ua_next_word();
 			pars.par[0]=GET_P1_4(w1);
-			pars.par[1]=GET_P2_32(w2,ua_next_word());
+			pars.par[1]=GET_P2_32(w2,w3);
 			pars.par[2]=0;
 			break;
 
