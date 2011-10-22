@@ -35,9 +35,10 @@
 #define null 0
 
 
-#define CAST24TO32(x)		(((x)&0x800000)?(0xff000000|(x)):(x))
-#define CAST16TO32(x)		(((x)&0x800000)?(0xff000000|(x)):(x))
-#define CAST4TO32(x)		(((x)&0x8)?(0xfffffff0|(x)):(x))
+#define CAST24TO32(x)		(((x)&0x00800000)?(0xff000000|(x)):(x))
+#define CAST16TO32(x)		(((x)&0x00008000)?(0xffff0000|(x)):(x))
+#define CAST8TO32(x)		(((x)&0x00000080)?(0xffffff00|(x)):(x))
+#define CAST4TO32(x)		(((x)&0x00000008)?(0xfffffff0|(x)):(x))
 
 
 #define GET_P1_3(x)			(((x)&0x0007))
@@ -71,7 +72,7 @@
 #define GET_P3_1(x)			(((x)&0x0080)>>7)
 #define GET_P2_5(x)			(((x)&0x01f0)>>4)
 
-#define GET_P1_8(x)			((GET_P3_4(x)<<4)|(GET_P1_4(x)))
+#define GET_P1_8(x)			CAST8TO32((GET_P3_4(x)<<4)|(GET_P1_4(x)))
 
 
 struct t_cmdinfo
