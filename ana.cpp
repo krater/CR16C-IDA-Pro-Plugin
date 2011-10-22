@@ -699,7 +699,7 @@ void analyze_opcode4(ushort w1)
 		//branch
 		tmpcmd.type=cond_branch_tbl[GET_P2_4(w1)].type;
 
-		if((w1&0xff0f)==0x1800)				//big offset (used for all negative values)
+		if((w1&0xff0f)==0x1800)				//big offset
 		{
 			tmpcmd.p[0]=PAR_none;
 			tmpcmd.p[1]=PAR_none;
@@ -707,7 +707,7 @@ void analyze_opcode4(ushort w1)
 			tmpcmd.op_order=ooType11;
 			tmpcmd.fmt=22;
 		}
-		else								//little offset (only positive values)
+		else								//little offset
 		{
 			tmpcmd.p[0]=PAR_disp2o;
 			tmpcmd.p[1]=PAR_none;

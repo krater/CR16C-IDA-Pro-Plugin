@@ -174,6 +174,32 @@ short stack_delta[256] = {
 //----------------------------------------------------------------------
 int idaapi cr16c_emu(void)
 {
+	ulong feature=cmd.get_canon_feature();
+
+	if(cmd.itype==CR16C_bal)
+	{
+		for(int i=0;i<3;i++)
+		{
+			if(cmd.Operands[i].type==o_displ)
+			{
+				ua_add_cref(0,cmd.Operands[i].value,fl_CF);
+				break;
+			}
+		}
+	}
+
+	if(feature&CF_JUMP)
+	{
+		for(int i=0;i<3;i++)
+		{
+			if(cmd.Operands[i].type==o_displ)
+			{
+				ua_add_cref(0,cmd.Operands[i].value,fl_JF);
+				break;
+			}
+		}
+	}
+
 /*   //We can only resolve target addresses for relative jumps
    if (cmd.auxpref & HAS_JREL) {
       ua_add_cref(cmd.Op1.offb, cmd.Op1.addr, fl_JN);
