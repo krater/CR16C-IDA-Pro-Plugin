@@ -76,8 +76,8 @@ static void idaapi func_header(func_t *f)
 	char buf[256];
 	char name[64];
 
-	printf_line(0, "# ||||||||||||||| S U B R O U T I N E |||||||||||||||");
-	printf_line(0, "");
+   printf_line(0, "# =============== S U B R O U T I N E =======================================");
+   printf_line(0, "");
 
 	get_func_name(f->startEA, name, sizeof(name));
 	init_output_buffer(buf, sizeof(buf));
